@@ -55,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildItem(Article article) {
     return Padding(
+      // 添加 key，修改当有条目打开时，第一个条目移除后，打开的条目不对应的问题。
+      key: Key(article.text),
       padding: const EdgeInsets.all(16.0),
       child: ExpansionTile(
         title: Text(

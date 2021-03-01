@@ -8,23 +8,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// Widget 测试
 import 'package:hn_app/main.dart';
-
+// flutter test // 这条命令不用手机即可完成
+// flutter run test/widget_test.dart // 这条命令需要手机才可完成
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Clicking tile it opens', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 期望刚打开 app 的时候，找不到 launch 图标
+    expect(find.byIcon(Icons.launch), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // 点击第一个条目
+    await tester.tap(find.byType(ExpansionTile).first);
+    // 开启循环
     await tester.pump();
+    // await tester.pumpAndSettle(); // 当点击后有动画时，用这个代码
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // 期望点击了一个条目后，可以找到 launch 图标
+    expect(find.byIcon(Icons.launch), findsOneWidget);
+
   });
 }
